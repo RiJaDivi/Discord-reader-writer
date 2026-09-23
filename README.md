@@ -2,7 +2,7 @@
 
 ## Installation
 - install jq from https://jqlang.org/download/ if you don't have it
-- git clone this repo
+- git clone this repo.
 
 ## Usage
 
