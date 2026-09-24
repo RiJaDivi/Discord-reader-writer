@@ -12,8 +12,6 @@ fi
 
 . bot.conf
 
-#echo $TOKEN
-#echo $CHANNELID
 
 ARGS=("$@")
 
