@@ -1,6 +1,20 @@
 #!/bin/bash
-CHANNELID=
-BOt=
+
+if [ ! -f "./bot.conf" ]; then
+  echo "config deosnt exist"
+  echo -n "Enter bot token: "
+  read TOKEN
+  echo -n "Enter channel id: "
+  read CHANNELID
+  echo "TOKEN=$TOKEN" > ./bot.conf
+  echo "CHANNELID=$CHANNELID" >> ./bot.conf
+fi
+
+. bot.conf
+
+#echo $TOKEN
+#echo $CHANNELID
+
 ARGS=("$@")
 
 if [ "-r" == "${ARGS[0]}" ]
@@ -15,12 +29,12 @@ then
 		fi
 	fi
 
-	curl -s -H "Authorization: Bot $BOt" -X GET "https://discord.com/api/v10/channels/$CHANNELID/messages?limit=$LIMIT" | jq -r  '.[] | "\(.author.username): \(.content)"'
+	curl -s -H "Authorization: Bot $TOKEN" -X GET "https://discord.com/api/v10/channels/$CHANNELID/messages?limit=$LIMIT" | jq -r  '.[] | "\(.author.username): \(.content)"'
 
 elif [ "-p" == "${ARGS[0]}" ]
 then
     MSG="${ARGS[*]:1}"
-    curl -s -H "Authorization: Bot $BOt" -H "Content-Type: application/json" \
+    curl -s -H "Authorization: Bot $TOKEN" -H "Content-Type: application/json" \
         -X POST -d "$(jq -n --arg c "$MSG" '{content:$c}')" \
         "https://discord.com/api/v10/channels/$CHANNELID/messages"
 else
