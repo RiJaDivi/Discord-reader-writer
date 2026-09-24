@@ -1,8 +1,7 @@
-RND1=$(head -c 16 /dev/urandom | xxd -p)
-RND2=$(head -c 16 /dev/urandom | xxd -p)
+NUM=64
 
-K1=$((0x$RND1))
-K2=$((0x$RND2))
+K1=$(python3 -c 'print(int("'$(head -c $NUM /dev/urandom | xxd -p -c 256)'", 16))')
+K2=$(python3 -c 'print(int("'$(head -c $NUM /dev/urandom | xxd -p -c 256)'", 16))')
 
 BITS1=$(python3 -c "n = $K1; print(n.bit_length())")
 P=$(python3 -c "from sympy import randprime; print(randprime(2**($BITS-1), 2**$BITS1))")
@@ -12,7 +11,7 @@ Q=$(python3 -c "from sympy import randprime; print(randprime(2**($BITS-1), 2**$B
 
 
 N=$(echo "$P * $Q" | bc)
-EUN=$(echo "($P - 1) * ($Q - 1)"| bc)
+EUN=$(echo "($P - 1) * ($Q - 1)"| BC_LINE_LENGTH=0 bc)
 E=65537
 D=$(python3 -c "print(pow($E, -1, $EUN))")
 
