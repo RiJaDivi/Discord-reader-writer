@@ -8,6 +8,7 @@ if [ ! -f "./bot.conf" ]; then
   read CHANNELID
   echo "TOKEN=$TOKEN" > ./bot.conf
   echo "CHANNELID=$CHANNELID" >> ./bot.conf
+  chmod 600 ./bot.conf
 fi
 
 . bot.conf
