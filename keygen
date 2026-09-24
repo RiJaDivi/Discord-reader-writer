@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NUM=64
 
 K1=$(python3 -c 'print(int("'$(head -c $NUM /dev/urandom | xxd -p -c 256)'", 16))')
@@ -20,3 +22,5 @@ N=$N
 E=$E
 D=$D
 EOF
+
+chmod 400 ./keys.txt

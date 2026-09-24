@@ -1,3 +1,5 @@
+#!/bin/bash
+
 source ./keys.txt
 
 ARGS=("$@")
