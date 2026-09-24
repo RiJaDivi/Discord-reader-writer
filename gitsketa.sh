@@ -33,8 +33,9 @@ then
 elif [ "-p" == "${ARGS[0]}" ]
 then
     MSG="${ARGS[*]:1}"
+    EMSG=$(./cypher.cs -e "$MSG")
     curl -s -H "Authorization: Bot $TOKEN" -H "Content-Type: application/json" \
-        -X POST -d "$(jq -n --arg c "$MSG" '{content:$c}')" \
+        -X POST -d "$(jq -n --arg c "$EMSG" '{content:$c}')" \
         "https://discord.com/api/v10/channels/$CHANNELID/messages"
 else
         echo "Z KURVY SYNU HLOUPEJ -p NEBO -r"
